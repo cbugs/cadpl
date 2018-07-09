@@ -1,0 +1,74 @@
+﻿@model Admin.Models.HomeStatsViewModel
+
+@{
+    ViewBag.Title = "Moderation";
+    ViewBag.SectionTitle = "Home";
+    ViewBag.SectionDescription = "Welcome administrator";
+}
+
+<div class="row">
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.Participants</span>
+        <span class="info-box-text">Participants</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red"><i class="ion ion-ios-cart-outline"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.Entries</span>
+        <span class="info-box-text">Entries</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix visible-sm-block"></div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="ion ion-ios-list"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.Ingredients</span>
+        <span class="info-box-text">Ingredients</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-yellow"><i class="fa fa-refresh"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.ExistingBarCombinations</span>
+        <span class="info-box-text">Bar combinations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="fa fa-warning"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.NewProCampaignTransactions</span>
+        <span class="info-box-text">Failed transactions</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-yellow"><i class="fa fa-retweet"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-number">@Model.SentProCampaignTransactions</span>
+        <span class="info-box-text">Transactions <br>retried</span>
+      </div>
+    </div>
+  </div>
+</div>

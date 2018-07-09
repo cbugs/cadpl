@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Moderation";
+    ViewBag.SectionTitle = "Entries";
+    ViewBag.SectionDescription = "List of entries";
+}
+
+<form id='form-filter'>
+    <div class="form-group">
+        <input id="filter-text" class="form-control" type="text" name="filter" placeholder="Email or participant Id"/>
+    </div>
+    <div class="form-group">
+        <input id="btn-filter" class="form-control" type="submit" value="Search"/>
+    </div>
+</form>
+
+<form id='form-csv' method='GET' action = '@Url.Action("CsvExport", "Entry")'></form>
+
+<div id="jtable"></div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#jtable').jtable({
+                title: 'Table of enties',
+                paging: true,
+                pageSize: 30,
+                actions: {
+                    listAction: 'Entry/List'
+                },
+                fields: {
+                    Id: {
+                        title: 'Id',
+                        key: true,
+                        width: '10%'
+                    },
+                    ParticipantId: {
+                        title: 'Participant Id',
+                        width: '10%'
+                    },
+                    Email: {
+                        title: 'Email',
+						display: function(data) {
+							return data.record.Email.substring(0, 10) + ' ...';
+						},
+                        width: '5%'
+                    },
+                    ConsumerId: {
+                        title: 'Consumer Id',
+                        width: '5%'
+                    },
+                    BarName: {
+                        title: 'Name',
+                        width: '5%'
+                    },
+                    BarDescription: {
+                        title: 'Description',
+                        width: '5%'
+                    },
+                    BarColour: {
+                        title: 'Colour',
+                        width: '5%'
+                    },
+                    Ingredient1: {
+                        title: 'Ing. 1',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient1);
+                        },
+                        width: '10%'
+                    },
+                    Ingredient2: {
+                        title: 'Ing. 2',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient2);
+                        },
+                        width: '10%'
+                    },
+                    Ingredient3: {
+                        title: 'Ing. 3',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient3);
+                        },
+                        width: '10%'
+                    },
+                    CreatedOn: {
+                        title: 'Created on',                        
+                        width: '15%'
+                    }
+                },
+                recordsLoaded: function (event, data) {
+                    $.each(data.records, function(index, record) {
+                        if (record.Colour == 'RED')
+                        {
+                            $('.jtable tbody tr:eq(' + index + ')').addClass('tr-red');
+                        }
+                    });
+                },
+				toolbar: {
+					items: [{
+						tooltip: 'Click here to export this table to excel',
+						// icon: '/Content/images/Misc/excel.png',
+						text: 'Export to CSV',
+						click: function () {
+							$('#form-csv').submit();
+						}
+					}]
+				}
+            });
+            $('#jtable').jtable('load');
+
+            $('#btn-filter').click(function() {
+                $.ajax({
+                    url: 'Entry/UpdateFilter',
+                    type: 'POST',
+                    data: $('#form-filter').serialize(),
+                    success: function (response) {
+                        $('#jtable').jtable('load');
+                    },
+                    failure: function (response) {
+                        alert('An error occured ajax filtering');
+                    }
+                });
+                
+                return false;
+            });
+        });
+
+        function displayIngredient(ingredient) {
+            if (ingredient == null)
+            {
+                return '';
+            }
+            var html = '<b class="' + ingredient.Colour.toLowerCase() + '">';
+                html += ingredient.Name;
+            html += '</b>';
+
+            return html;
+        }
+    </script>
+}

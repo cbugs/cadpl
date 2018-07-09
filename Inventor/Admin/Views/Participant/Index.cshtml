@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Moderation";
+    ViewBag.SectionTitle = "Participants";
+    ViewBag.SectionDescription = "List of participants";
+}
+
+<div id="jtable"></div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#jtable').jtable({
+                title: 'Table of participants',
+                paging: true,
+                pageSize: 30,
+                actions: {
+                    listAction: 'Participant/List'
+                },
+                fields: {
+                    Id: {
+                        title: 'Id',
+                        key: true,
+                        width: '30%'
+                    },
+                    EmailHash: {
+                        title: 'Email hash',
+                        width: '30%'
+                    },
+                    ConsumerId: {
+                        title: 'Consumer ID',
+                        width: '10%'
+                    },
+                    Entries: {
+                        title: 'Entries',
+                        width: '5%'
+                    },
+                    ParticipantDataCaches: {
+                        title: 'Entries',
+                        width: '5%'
+                    },
+                    CreatedOn: {
+                        title: 'Created on',
+                        width: '20%'
+                    }
+                }
+            });
+            $('#jtable').jtable('load');
+        });
+    </script>
+}

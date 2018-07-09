@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Moderation";
+    ViewBag.SectionTitle = "Ingredients";
+    ViewBag.SectionDescription = "List of ingredients";
+}
+
+<div id="jtable"></div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#jtable').jtable({
+                title: 'Table of enties',
+                paging: true,
+                pageSize: 30,
+                actions: {
+                    listAction: 'Ingredient/List'
+                },
+                fields: {
+                    Id: {
+                        title: 'Id',
+                        key: true,
+                        width: '20%'
+                    },
+                    Name: {
+                        title: 'Name',
+                        display: function(data) {
+                            return displayName(data.record.Name, data.record.Colour);
+                        },
+                        width: '20%'
+                    },
+                    Category: {
+                        title: 'Category',
+                        width: '20%'
+                    },
+                    PackImagePath: {
+                        title: 'PackImagePath',
+                        width: '20%'
+                    },
+                    CreatedOn: {
+                        title: 'Created on',                        
+                        width: '20%'
+                    }
+                }
+            });
+            $('#jtable').jtable('load');
+        });
+        
+        function displayName(name, colour) {
+            var html = '<b class="' + colour.toLowerCase() + '">';
+                html += name;
+            html += '</b>';
+
+            return html;
+        }
+    </script>
+}

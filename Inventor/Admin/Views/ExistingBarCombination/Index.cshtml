@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Moderation";
+    ViewBag.SectionTitle = "Ingredient combinations";
+    ViewBag.SectionDescription = "List of ingredient combinations";
+}
+
+<div id="jtable"></div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#jtable').jtable({
+                title: 'Table of enties',
+                paging: true,
+                pageSize: 30,
+                actions: {
+                    listAction: 'ExistingBarCombination/List'
+                },
+                fields: {
+                    BarName: {
+                        title: 'Id',
+                        key: true,
+                        width: '15%'
+                    },
+                    Ingredient1: {
+                        title: 'Ing. 1',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient1);
+                        },
+                        width: '10%'
+                    },
+                    Ingredient1Id: {
+                        title: 'Ing. 1 Id',
+                        display: function(data) {
+                            return displayIngredientId(data.record.Ingredient1);
+                        },
+                        width: '15%'
+                    },
+                    Ingredient2: {
+                        title: 'Ing. 2',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient2);
+                        },
+                        width: '10%'
+                    },
+                    Ingredient2Id: {
+                        title: 'Ing. 2 Id',
+                        display: function(data) {
+                            return displayIngredientId(data.record.Ingredient2);
+                        },
+                        width: '15%'
+                    },
+                    Ingredient3: {
+                        title: 'Ing. 3',
+                        display: function(data) {
+                            return displayIngredient(data.record.Ingredient3);
+                        },
+                        width: '15%'
+                    },
+                    Ingredient3Id: {
+                        title: 'Ing. 3 Id',
+                        display: function(data) {
+                            return displayIngredientId(data.record.Ingredient3);
+                        },
+                        width: '10%'
+                    },
+                    CreatedOn: {
+                        title: 'Created on',                        
+                        width: '10%'
+                    }
+                }
+            });
+            $('#jtable').jtable('load');
+        });
+        
+        function displayIngredient(ingredient) {
+            if (ingredient == null)
+            {
+                return '';
+            }
+            var html = '<b class="' + ingredient.Colour.toLowerCase() + '">';
+                html += ingredient.Name;
+            html += '</b>';
+
+            return html;
+        }
+
+        function displayIngredientId(ingredient) {
+            if (ingredient == null)
+            {
+                return '';
+            }
+            
+            return ingredient.Id;
+        }
+    </script>
+}
